@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import EnvExposure, GeneMutation, Participant
 
-# Register your models here.
+
+admin.site.register(EnvExposure)
+admin.site.register(GeneMutation)
+admin.site.register(Participant)
