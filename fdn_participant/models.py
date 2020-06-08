@@ -1,6 +1,6 @@
 from django.db import models
 
-from .constants import REVIEW_STATUS
+from .constants import REVIEW_STATUS_CHOICES, REVIEW_STATUS_NOT_REVIEWED
 
 
 class EnvExposure(models.Model):
@@ -25,8 +25,8 @@ class Participant(models.Model):
     gene_mutations = models.ManyToManyField(GeneMutation)
     reviewed_status = models.CharField(
         max_length=255,
-        choices=[(tag, tag.value) for tag in REVIEW_STATUS],
-        default=REVIEW_STATUS.NOT_REVIEWED)
+        choices=REVIEW_STATUS_CHOICES,
+        default=REVIEW_STATUS_NOT_REVIEWED)
 
     def __str__(self):
         return self.name
