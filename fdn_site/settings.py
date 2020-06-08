@@ -67,8 +67,12 @@ WSGI_APPLICATION = 'fdn_site.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'fdndata'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'fdndata',
+        'USER': 'butcer0',
+        'PASSWORD': 'compuwhz',
+        'HOST': 'fdn-data-instance.crmwiup4nfik.us-east-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -111,3 +115,14 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
+
+"""
+all matching properties in local_settings will overwrite existing
+can include this empty local, then include the local_settings.py
+to overwrite the values on the server
+"""
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
