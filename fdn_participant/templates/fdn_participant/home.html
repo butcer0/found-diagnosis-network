@@ -1,4 +1,228 @@
-<h3>Welcome to the Participant Information Overview Page</h3>
-<p>Current Participant Data: {{ participant_data }} </p>
-<br />
-<a href="{% url 'fdn_participant:registration' %}">Register New Participant</a>
+<!DOCTYPE html>
+{% load static %}
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Found Diagnosis Network">
+    <meta name="author" content="Erik Butcher">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>Found Diagnosis Network</title>
+
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+
+    <script type="text/javascript" src="/admin/jsi18n/"></script>
+    <script type="text/javascript" src="/static/admin/js/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+    <script type="text/javascript" src="/static/admin/js/core.js"></script>
+    <script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+    <script type="text/javascript" src="/static/admin/js/actions.js"></script>
+    <script type="text/javascript" src="/static/admin/js/urlify.js"></script>
+    <script type="text/javascript" src="/static/admin/js/prepopulate.js"></script>
+    <script type="text/javascript" src="/static/admin/js/vendor/xregexp/xregexp.js"></script>
+
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/responsive.css">
+
+    <meta name="robots" content="NONE,NOARCHIVE">
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/album/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/docs/4.5/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="mask-icon" href="/docs/4.5/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+    <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon.ico">
+    <meta name="msapplication-config" content="/docs/4.5/assets/img/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#563d7c">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+
+
+<body class=" app-fdn_participant model-participant change-list"
+      data-admin-utc-offset="0">
+
+<!-- Container -->
+<div id="container">
+
+
+    <!-- Header -->
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="{% url 'fdn_participant:home' %}">Found Diagnosis Network</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" style="list-style: none; font-size: medium">
+                        <a class="nav-link"
+                           href="{% url 'fdn_participant:registration' %}">Register Patient</a>
+                    </li>
+                    <li class="nav-item" style="list-style: none; font-size: medium">
+                        <a class="nav-link"
+                           href="https://www.linkedin.com/in/erik-butcher?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BaQmDX3xERc6qMWY5Y%2BmFBw%3D%3D">LinkedIn</a>
+                    </li>
+                    <li class="nav-item" style="list-style: none; font-size: medium">
+                        <a class="nav-link" href="{% static 'Resume_ERB_Tech.pdf' %}">Resume</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+    </div>
+    <!-- END Header -->
+
+    <!-- Content -->
+    <div id="content" class="flex">
+        <h1>Participants</h1>
+        <div id="content-main">
+
+            <ul class="object-tools">
+                <li>
+                    <a href="{% url 'fdn_participant:registration' %}" class="addlink">
+                        Add participant
+                    </a>
+                </li>
+            </ul>
+
+            <br class="clear"/>
+            <div class="module" id="changelist">
+                <form id="changelist-form" method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="results">
+                        <table id="table result_list">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="column-__str__">
+                                    <div class="text"><span>Participant</span></div>
+                                    <div class="clear"></div>
+                                </th>
+                                <th scope="col" class="column-__str__">
+                                    <div class="text"><span>Age</span></div>
+                                    <div class="clear"></div>
+                                </th>
+                                <th scope="col" class="column-__str__">
+                                    <div class="text"><span>Has Sibling</span></div>
+                                    <div class="clear"></div>
+                                </th>
+                                <th scope="col" class="column-__str__">
+                                    <div class="text"><span>Environmental Exposures</span></div>
+                                    <div class="clear"></div>
+                                </th>
+                                <th scope="col" class="column-__str__">
+                                    <div class="text"><span>Gene Mutations</span></div>
+                                    <div class="clear"></div>
+                                </th>
+                                <th scope="col" class="column-__str__">
+                                    <div class="text"><span>Review Status</span></div>
+                                    <div class="clear"></div>
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for participant in participants.all %}
+                                <tr class=row1}>
+                                    <th class="field-__str__"><a
+                                            href="/admin/fdn_participant/participant/{{ participant.id }}/change/">{{ participant.name }}</a>
+                                    </th>
+                                    <td>{{ participant.age }}</td>
+                                    <td>{{ participant.has_siblings }}</td>
+                                    <td>
+                                        {% for exposure in participant.env_exposures.all %}
+                                            {{ exposure }}
+                                        {% endfor %}
+                                    </td>
+                                    <td>
+                                        {% for mutation in participant.gene_mutations.all %}
+                                            {{ mutation }}
+                                        {% endfor %}
+                                    <td>
+                                        <select name="reviewed_status" id="id_reviewed_status"
+                                                onchange="updateReviewedStatus({{ participant.id }}, this.value)">
+                                            <option value="Not Reviewed"
+                                                    {% if participant.reviewed_status == 'Not Reviewed' %}
+                                                    selected {% endif %}>Not Reviewed
+                                            </option>
+                                            <option value="Reviewed - Accepted"
+                                                    {% if participant.reviewed_status == 'Reviewed - Accepted' %}
+                                                    selected {% endif %}>Reviewed - Accepted
+                                            </option>
+                                            <option value="Reviewed - Not Accepted"
+                                                    {% if participant.reviewed_status == 'Reviewed - Not Accepted' %}
+                                                    selected {% endif %}>Reviewed - Not Accepted
+                                            </option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p class="paginator">
+                        {{ participant_count }} Participants
+                    </p>
+
+                </form>
+            </div>
+        </div>
+        <br class="clear">
+    </div>
+    <!-- END Content -->
+
+    <div id="footer"></div>
+</div>
+<!-- END Container -->
+<footer class="text-muted">
+    <div class="container text-center">
+        <p>© Erik Butcher {% now "Y" %}</p>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    function updateReviewedStatus(participant_key, new_reviewed_status) {
+        $.ajax({
+            type: "GET",
+            url: "{% url 'fdn_participant:update_reviewed_status' %}",
+            data: {
+                participant_key: participant_key,
+                new_reviewed_status: new_reviewed_status
+            }
+        })
+    }
+</script>
+</body>
+</html>
