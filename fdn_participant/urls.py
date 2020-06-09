@@ -9,4 +9,6 @@ urlpatterns = [
     path('home', views.home, name='home'),
     # ex: /fdn/registration
     path('registration', views.register_participant, name='registration'),
+    # ex: /fdn/registration/add
+    path('registration/add', views.add_participant, name='add'),
 ]
