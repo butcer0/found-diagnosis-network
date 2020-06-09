@@ -1,3 +1,217 @@
-<h3>Welcome to the registration page</h3>
-<p>Possible Environmental Exposures : {{ env_exposures }}</p>
-<p>Possible Genetic Mutations : {{ gene_mutations }}</p>
+<!DOCTYPE html>
+{% load static %}
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Register Participant">
+    <meta name="author" content="Erik Butcher">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>Register Participant</title>
+
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+
+    <script type="text/javascript" src="/admin/jsi18n/"></script>
+    <script type="text/javascript" src="/static/admin/js/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+    <script type="text/javascript" src="/static/admin/js/core.js"></script>
+    <script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+    <script type="text/javascript" src="/static/admin/js/actions.js"></script>
+    <script type="text/javascript" src="/static/admin/js/urlify.js"></script>
+    <script type="text/javascript" src="/static/admin/js/prepopulate.js"></script>
+    <script type="text/javascript" src="/static/admin/js/vendor/xregexp/xregexp.js"></script>
+
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/responsive.css">
+
+    <meta name="robots" content="NONE,NOARCHIVE">
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/album/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/docs/4.5/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="/docs/4.5/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/docs/4.5/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+    <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon.ico">
+    <meta name="msapplication-config" content="/docs/4.5/assets/img/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#563d7c">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+
+
+<body class=" app-fdn_participant model-participant change-form"
+      data-admin-utc-offset="0">
+
+<!-- Container -->
+<div id="container">
+
+    <!-- Header -->
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="{% url 'fdn_participant:home' %}">Found Diagnosis Network</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" style="list-style: none; font-size: medium">
+                        <a class="nav-link"
+                           href="{% url 'fdn_participant:home' %}">Home</a>
+                    </li>
+                    <li class="nav-item" style="list-style: none; font-size: medium">
+                        <a class="nav-link"
+                           href="https://www.linkedin.com/in/erik-butcher?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BaQmDX3xERc6qMWY5Y%2BmFBw%3D%3D">LinkedIn</a>
+                    </li>
+                    <li class="nav-item" style="list-style: none; font-size: medium">
+                        <a class="nav-link" href="{% static 'Resume_ERB_Tech.pdf' %}">Resume</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+    </div>
+    <!-- END Header -->
+
+    <!-- Content -->
+    <div id="content" class="colM">
+
+        <h1>Register participant</h1>
+        <div id="content-main">
+            <form action={% url 'fdn_participant:add' %} method="post" id="participant_form" novalidate>
+                {% csrf_token %}
+                <div>
+                    <fieldset class="module aligned ">
+                        <div class="form-row field-name">
+                            <div>
+                                <label class="required" for="id_name">Name:</label>
+                                <input type="text" name="name" class="vTextField" maxlength="255" required id="id_name">
+                            </div>
+                        </div>
+
+                        <div class="form-row field-age">
+                            <div>
+                                <label class="required" for="id_age">Age:</label>
+                                <input type="number" name="age" class="vIntegerField" min="0" required id="id_age">
+                            </div>
+                        </div>
+                        <div class="form-row field-has_siblings">
+                            <div class="checkbox-row">
+                                <input type="checkbox" name="has_siblings" id="id_has_siblings" value=isChecked>
+                                <label class="vCheckboxLabel" for="id_has_siblings">Has siblings</label>
+                            </div>
+                        </div>
+                        <div class="form-row field-env_exposures">
+                            <div>
+                                <label for="id_env_exposures">Env exposures:</label>
+                                <div class="related-widget-wrapper">
+                                    <select name="env_exposures" required id="id_env_exposures" multiple>
+                                        {% for exposure in env_exposures.all %}
+                                            <option value="{{ exposure.id }}">{{ exposure.exposure_name }}</option>
+                                        {% endfor %}
+                                    </select>
+
+                                    <a class="related-widget-wrapper-link add-related" id="add_id_env_exposures"
+                                       href="/admin/fdn_participant/envexposure/add/?_to_field=id&amp;_popup=1"
+                                       title="Add another env exposure"><img src="/static/admin/img/icon-addlink.svg"
+                                                                             alt="Add"></a>
+
+                                </div>
+                                <div class="help">Hold down “Control”, or “Command” on a Mac, to select more than one.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row field-gene_mutations">
+                            <div>
+                                <label for="id_gene_mutations">Gene mutations:</label>
+                                <div class="related-widget-wrapper">
+                                    <select name="gene_mutations" required id="id_gene_mutations" multiple>
+                                        {% for mutation in gene_mutations.all %}
+                                            <option value="{{ mutation.id }}">{{ mutation.gene_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <a class="related-widget-wrapper-link add-related" id="add_id_gene_mutations"
+                                       href="/admin/fdn_participant/genemutation/add/?_to_field=id&amp;_popup=1"
+                                       title="Add another gene mutation"><img src="/static/admin/img/icon-addlink.svg"
+                                                                              alt="Add"></a>
+
+                                </div>
+                                <div class="help">Hold down “Control”, or “Command” on a Mac, to select more than one.
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <div class="submit-row">
+                        <input type="submit" value="Save" class="default btn btn-primary bg-dark" name="_save">
+                    </div>
+
+                    <script type="text/javascript"
+                            id="django-admin-form-add-constants"
+                            src="/static/admin/js/change_form.js"
+                            data-model-name="participant"
+                    >
+                    </script>
+
+                    <script type="text/javascript"
+                            id="django-admin-prepopulated-fields-constants"
+                            src="/static/admin/js/prepopulate_init.js"
+                            data-prepopulated-fields="[]">
+                    </script>
+                </div>
+            </form>
+        </div>
+
+        <br class="clear">
+    </div>
+    <!-- END Content -->
+
+    <div id="footer"></div>
+</div>
+<!-- END Container -->
+
+<footer class="text-muted">
+    <div class="container text-center">
+        <p>© Erik Butcher {% now "Y" %}</p>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+{#      <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>#}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+</body>
+</html>

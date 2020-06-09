@@ -20,7 +20,7 @@ class GeneMutation(models.Model):
 class Participant(models.Model):
     name = models.CharField(max_length=255)
     age = models.PositiveIntegerField()
-    has_siblings = models.BooleanField()
+    has_siblings = models.BooleanField(default=False)
     env_exposures = models.ManyToManyField(EnvExposure)
     gene_mutations = models.ManyToManyField(GeneMutation)
     reviewed_status = models.CharField(
